@@ -12,7 +12,7 @@
       line: 'ENABLED="true"'
       state: present
 
-  - name: Restart sysstat
+  - name: Start sysstat
     service:
       name: sysstat
       state: started
