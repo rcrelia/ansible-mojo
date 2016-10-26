@@ -1,0 +1,22 @@
+ssh_authorized_keys: authorized_keys
+
+# openssl passwd -1 -salt fo0 ch@ngeMe!
+user_password: $1$fo0$uEtDcJX7m4ROcHuTqK.1g.
+
+users:
+  - user_name: ansible
+    user_gecos: 'ansible user'
+    user_groups: "users"
+    user_uid: 2000
+    user_shell: "/bin/bash"
+    user_profile: bash_profile
+    user_rc: bashrc
+    sudoers: yes
+  - user_name: bdobbs
+    user_gecos: 'Bob Dobbs'
+    user_groups: "users"
+    user_uid: 2001
+    user_shell: "/bin/bash"
+    user_profile: bash_profile
+    user_rc: bashrc
+    sudoers: no

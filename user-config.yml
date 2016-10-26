@@ -1,0 +1,51 @@
+---
+- name: Add user group
+  group:
+    name: "{{ item.user_name }}"
+    gid: "{{ item.user_uid }}"
+    state: present
+  with_items: '{{ users }}'
+
+- name: Add user
+  user:
+    name: "{{ item.user_name }}"
+    uid: "{{ item.user_uid }}"
+    password: "{{ user_password }}"
+    comment: "{{ item.user_gecos }}"
+    group: "{{ item.user_name }}"
+    groups: "{{ item.user_groups }}"
+    shell: "{{ item.user_shell }}"
+    createhome: yes
+    append: yes
+    state: present
+  with_items: '{{ users }}'
+
+- name: Add user bash_profile
+  copy:
+    src: "{{ item.user_profile }}"
+    dest: "/home/{{ item.user_name}}/.bash_profile"
+    owner: "{{ item.user_name }}"
+    group: "{{ item.user_name }}"
+    mode: 0744
+    backup: yes
+  with_items: '{{ users }}'
+
+- name: Add user bashrc
+  copy:
+    src: "{{ item.user_rc }}"
+    dest: "/home/{{ item.user_name}}/.bashrc"
+    owner: "{{ item.user_name }}"
+    group: "{{ item.user_name }}"
+    mode: 0744
+    backup: yes
+  with_items: '{{ users }}'
+
+- name: Setup user bin directory
+  file:
+    path: "/home/{{ item.user_name }}/bin"
+    state: directory
+    mode: 0755
+  with_items: '{{ users }}'
+
+- include: ssh-config.yml
+- include: sudoers-config.yml

@@ -1,0 +1,20 @@
+---
+- name: Setup user ssh directory
+  file:
+    path: "/home/{{ item.user_name }}/.ssh"
+    owner: "{{ item.user_name }}"
+    group: "{{ item.user_name }}"
+    state: directory
+    mode: 0700
+  with_items: '{{ users }}'
+
+
+- name: Setup user ssh authorized_keys
+  copy:
+    src: "{{ ssh_authorized_keys }}"
+    dest: "/home/{{ item.user_name }}/.ssh/authorized_keys"
+    owner: "{{ item.user_name }}"
+    group: "{{ item.user_name }}"
+    mode: 0644
+    backup: yes
+  with_items: '{{ users }}'

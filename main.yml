@@ -1,0 +1,25 @@
+---
+  # This syntax is for ansible 2.2
+- hosts: all
+  become: yes
+  vars_files:
+    - vars.yml
+  tasks:
+  # Setup NTP services
+  - name: Ensure ntpdate is installed
+    apt: name=ntpdate state=present
+  - name: Ensure ntp is installed
+    apt: name=ntp state=present
+  - name: Ensure ntp is running and enabled at boot
+    systemd: name=ntp state=started enabled=yes masked=no
+
+  # We need aptitude for ansible apt module
+  - name: Ensure aptitude is installed
+    apt: name=aptitude state=present
+
+  # Update OS packages at least once a day
+  - name: Update apt package cache if older than one day
+    apt: upgrade=full update-cache=yes cache_valid_time=86400 autoremove=yes
+
+  - include: user-config.yml
+  - include: sysstat-config.yml

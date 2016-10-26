@@ -1,0 +1,19 @@
+---
+  # Install sysstat for sar reporting
+  - name: Install sysstat
+    apt:
+      name: sysstat
+      state: present
+
+  - name: Configure sysstat
+    lineinfile:
+      dest: /etc/default/sysstat
+      regexp: '^ENABLED='
+      line: 'ENABLED="true"'
+      state: present
+
+  - name: Restart sysstat
+    service:
+      name: sysstat
+      state: started
+      enabled: yes

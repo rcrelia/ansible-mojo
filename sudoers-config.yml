@@ -1,0 +1,10 @@
+---
+- name: Add sudo rights to admin users
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: '^{{ item.user_name }}'
+    line: '{{ item.user_name }} ALL=(ALL) NOPASSWD: ALL'
+    state: present
+    validate: 'visudo -cf %s'
+  when: '{{ item.sudoers }} == True'
+  with_items: '{{ users }}'

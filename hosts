@@ -1,0 +1,12 @@
+[test]
+myvm
+
+[web]
+vm01
+vm02
+
+[cache]
+vm03
+
+[db]
+vm04
