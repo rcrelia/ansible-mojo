@@ -7,8 +7,8 @@ A simple introductory demo of Ansible playbook operations.
 ## Installation
 
 * Clone this repo down to the system you'll be running Ansible from and make it your working directory
-  * cd $HOME/code
-  * git clone https://github.com/rcrelia/ansible-mojo.git
+  * `cd $HOME/code`
+  * `git clone https://github.com/rcrelia/ansible-mojo.git`
   * cd ansible-mojo
 * Create a symlink from /etc/ansible to $HOME/code/ansible-mojo
   * sudo ln -s /etc/ansible $HOME/code/ansible-mojo
