@@ -9,9 +9,11 @@ For more in-depth discussion, check out this [blog post](https://randops.org/201
 ## Installation
 
 * Clone this repo down to the system you'll be running Ansible from and make it your working directory
+	```
 	$ cd $HOME/code
 	$ git clone https://github.com/rcrelia/ansible-mojo.git
 	$ cd ansible-mojo
+	```
 * Create a symlink from /etc/ansible to $HOME/code/ansible-mojo
   * `$ sudo ln -s /etc/ansible $HOME/code/ansible-mojo`
 * Create a Vagrant VM using the image bento/xenial64 and VirtualBox as your provider
