@@ -9,7 +9,7 @@ For more in-depth discussion, check out this [blog post](https://randops.org/201
 ## Installation
 
 * Clone this repo down to the system you'll be running Ansible from and make it your working directory
-	```
+	```bash
 	$ cd $HOME/code
 	$ git clone https://github.com/rcrelia/ansible-mojo.git
 	$ cd ansible-mojo
