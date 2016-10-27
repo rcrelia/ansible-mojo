@@ -72,7 +72,7 @@ $ ansible-playbook main.yml
 
 ## Development
 
-Send patches to rcrelia.github@gmail.com, or fork the project on GitHub and
+Send edits/ideas to rcrelia.github@gmail.com, or fork the project on GitHub and
 send me a pull request.
 
 ## Authors
