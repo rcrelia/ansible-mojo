@@ -65,9 +65,6 @@ Subsequent runs:
 $ ansible-playbook main.yml
 ```
 
-
-    ------------------------------------------------------------------------
-
 ## Todo
 
 - Create more distro-agnostic plays (e.g., same play for both CentOS and Ubuntu)
