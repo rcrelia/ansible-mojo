@@ -4,7 +4,7 @@
 
 A simple introductory demo of Ansible playbook operations.
 
-For more in-depth discussion, check out this [blog post](https://randops.org/2016/10/26/ansible-shenanigans-part-i/).
+For a more in-depth discussion, check out this [blog post](https://randops.org/2016/10/26/ansible-shenanigans-part-i/).
 
 ## Installation
 
