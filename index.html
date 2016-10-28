@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Ansible-mojo by rcrelia</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Ansible-mojo</h1>
+          <h2>A simple demo of Ansible playbook operations</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/rcrelia/ansible-mojo/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/rcrelia/ansible-mojo/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/rcrelia/ansible-mojo" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <p>For a more in-depth discussion, check out this <a href="https://randops.org/2016/10/26/ansible-shenanigans-part-i/">blog post</a>.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<ul>
+<li>Clone this repo down to the system you'll be running Ansible from and make it your working directory</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> <span class="pl-smi">$HOME</span>/code
+$ git clone https://github.com/rcrelia/ansible-mojo.git
+$ <span class="pl-c1">cd</span> ansible-mojo</pre></div>
+
+<ul>
+<li>Create a symlink from /etc/ansible to $HOME/code/ansible-mojo</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ sudo ln -s /etc/ansible <span class="pl-smi">$HOME</span>/code/ansible-mojo</pre></div>
+
+<ul>
+<li>Create a Vagrant VM using the image bento/xenial64 and VirtualBox as your provider</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ mkdir <span class="pl-k">~</span>/vagrant-boxes/bento_ubuntu
+$ <span class="pl-c1">cd</span> <span class="pl-k">~</span>/vagrant-boxes/bento_ubuntu
+$ vagrant init bento/ubuntu-16.04<span class="pl-k">;</span> vagrant up --provider virtualbox</pre></div>
+
+<ul>
+<li>Configure the VM to be accessible via host lookups on your machine (e.g., add it to your /etc/hosts)</li>
+<li>Add the vagrant user's private key to your authentication chain/agent for passwordless access to the VM</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ ssh-add <span class="pl-k">~</span>/vagrant-boxes/bento_ubuntu/.vagrant/machines/default/virtualbox/private_key</pre></div>
+
+<ul>
+<li>Create a RSA key to use for the ansible SSH user and populate $HOME/code/ansible/authorized_keys with it</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ ssh-keygen -t rsa -f <span class="pl-k">~</span>/.ssh/ansible_key
+$ cat <span class="pl-k">~</span>/.ssh/ansible_key <span class="pl-k">&gt;</span> <span class="pl-smi">$HOME</span>/code/ansible-mojo/authorized_keys</pre></div>
+
+<ul>
+<li>Add this new RSA key to your authentication chain/agent for passwordless access to the VM as user "ansible"</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ ssh-add <span class="pl-k">~</span>/.ssh/ansible_key</pre></div>
+
+<ul>
+<li>Install Ansible v2.2.0 from source repo on GitHub</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> <span class="pl-smi">$HOME</span>/src
+$ git clone -b stable-2.2 git://github.com/ansible/ansible.git --recursive
+$ <span class="pl-c1">cd</span> ./ansible
+$ <span class="pl-c1">source</span> ./hacking/env-setup</pre></div>
+
+<ul>
+<li>Add your Vagrant VM host to Ansible's host inventory ($HOME/code/ansible-mojo/hosts)</li>
+<li>Test Ansible operations with your Vagrant VM</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ ansible yourvmname -m setup -e ansible_ssh_user=vagrant</pre></div>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>First run:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ ansible-playbook main.yml -e ansible_ssh_user=vagrant</pre></div>
+
+<p>Subsequent runs:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ ansible-playbook main.yml</pre></div>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Todo</h2>
+
+<ul>
+<li>Create more distro-agnostic plays (e.g., same play for both CentOS and Ubuntu)</li>
+<li>Roles! Galaxy!</li>
+</ul>
+
+<h2>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development</h2>
+
+<p>Send edits/ideas to <a href="mailto:rcrelia.github@gmail.com">rcrelia.github@gmail.com</a>, or fork the project on GitHub and
+send me a pull request.</p>
+
+<h2>
+<a id="authors" class="anchor" href="#authors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors</h2>
+
+<p>Author:: Rick Crelia</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright:: Copyright (c) 2014 Rick Crelia<br>
+License:: Apache License, Version 2.0
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+        </section>
+
+        <footer>
+          Ansible-mojo is maintained by <a href="https://github.com/rcrelia">rcrelia</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
